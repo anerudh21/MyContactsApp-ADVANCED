@@ -4,6 +4,8 @@ package contact.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import contact.model.Organization.OrganizationBuilder;
+
 /**
  * The class that represents a person type of contact
  */
@@ -14,17 +16,17 @@ public class Person extends Contact {
 	/**
 	 * Construtor to create a new Person object using the person builder
 	 * 
-	 * @param builder	The person builder
+	 * @param organizationBuilder	The person builder
 	 */
-	protected Person(PersonBuilder builder) {
-		super(builder.name);
-		this.relationship = builder.relationship;
+	protected Person(OrganizationBuilder organizationBuilder) {
+		super(organizationBuilder.name);
+		this.relationship = organizationBuilder.relationship;
 		
-		for(PhoneNumber phoneNumber : builder.phones) {
+		for(PhoneNumber phoneNumber : organizationBuilder.phones) {
 			this.addPhoneNumber(phoneNumber);
 		}
 		
-		for(EmailAddress emailAddress : builder.emails) {
+		for(EmailAddress emailAddress : organizationBuilder.emails) {
 			this.addEmailAddress(emailAddress);
 		}
 	}
