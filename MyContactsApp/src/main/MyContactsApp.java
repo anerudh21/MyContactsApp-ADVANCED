@@ -14,8 +14,8 @@ import auth.*;
 /**
  * Main class that serves as the entry point to the my contacts application.
  * 
- * @author rsin3607
- * @version 1.0
+ * @author Developer
+ * @version 3.0
  */
 public class MyContactsApp {
 	
