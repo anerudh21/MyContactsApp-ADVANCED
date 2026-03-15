@@ -1,5 +1,4 @@
-package user.command;
-
+package com.seveneleven.mycontactapp.user.command;
 
 import java.util.Stack;
 

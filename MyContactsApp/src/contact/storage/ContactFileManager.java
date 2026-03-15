@@ -1,4 +1,4 @@
-package contact.storage;
+package com.seveneleven.mycontactapp.contact.storage;
 
 import java.io.File;
 import java.io.BufferedReader;
@@ -10,8 +10,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import contact.model.*;
-import user.model.User;
+import com.seveneleven.mycontactapp.contact.model.Contact;
+import com.seveneleven.mycontactapp.contact.model.EmailAddress;
+import com.seveneleven.mycontactapp.contact.model.Organization;
+import com.seveneleven.mycontactapp.contact.model.Person;
+import com.seveneleven.mycontactapp.contact.model.PhoneNumber;
+import com.seveneleven.mycontactapp.user.model.User;
 
 /**
  * Class to manage storage and retrieval of data from the file storage system.

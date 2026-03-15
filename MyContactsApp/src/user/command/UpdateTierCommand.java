@@ -1,11 +1,11 @@
-package user.command;
-
+package com.seveneleven.mycontactapp.user.command;
 
 import java.util.Map;
 
-import auth.SessionManager;
-import user.model.*;
-
+import com.seveneleven.mycontactapp.auth.session.SessionManager;
+import com.seveneleven.mycontactapp.user.model.PremiumUser;
+import com.seveneleven.mycontactapp.user.model.User;
+import com.seveneleven.mycontactapp.user.model.UserBuilder;
 
 /**
  * Creates a command to update the tier of the user

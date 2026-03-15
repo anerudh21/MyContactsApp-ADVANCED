@@ -1,5 +1,4 @@
-package user.model;
-
+package com.seveneleven.mycontactapp.user.model;
 
 /**
  * A class that represents a premium user account.
@@ -25,13 +24,6 @@ public class PremiumUser extends User {
 	@Override
 	public String getAccountTier() {
 		return "PREMIUM";
-	}
-
-
-	@Override
-	public void setPasswordHash(String newHash) {
-		// TODO Auto-generated method stub
-		
 	}
 }
 

@@ -1,10 +1,8 @@
-package user.command;
+package com.seveneleven.mycontactapp.user.command;
 
-
-
-import user.model.User;
-import user.utilities.PasswordHasher;
-import user.validation.UserValidator;
+import com.seveneleven.mycontactapp.user.model.User;
+import com.seveneleven.mycontactapp.user.utilities.PasswordHasher;
+import com.seveneleven.mycontactapp.user.validation.UserValidator;
 
 /**
  * Creates a command to change the user password

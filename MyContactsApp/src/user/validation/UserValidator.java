@@ -1,5 +1,4 @@
-package user.validation;
-
+package com.seveneleven.mycontactapp.user.validation;
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 

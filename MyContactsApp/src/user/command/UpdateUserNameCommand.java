@@ -1,7 +1,6 @@
-package user.command;
+package com.seveneleven.mycontactapp.user.command;
 
-
-import user.model.UserProfile;
+import com.seveneleven.mycontactapp.user.model.UserProfile;
 
 /**
  * Command to update the username of the user

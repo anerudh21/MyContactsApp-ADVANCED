@@ -1,6 +1,4 @@
-package contact.model;
-
-
+package com.seveneleven.mycontactapp.contact.model;
 
 /**
  * Class to represent an phone number.
@@ -44,3 +42,4 @@ public class PhoneNumber {
 		return String.join(":", label, phoneNumber);
 	}
 }
+

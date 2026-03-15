@@ -1,10 +1,7 @@
-package contact.model;
-
+package com.seveneleven.mycontactapp.contact.model;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import contact.model.Organization.OrganizationBuilder;
 
 /**
  * The class that represents a person type of contact
@@ -16,19 +13,29 @@ public class Person extends Contact {
 	/**
 	 * Construtor to create a new Person object using the person builder
 	 * 
-	 * @param organizationBuilder	The person builder
+	 * @param builder	The person builder
 	 */
-	protected Person(OrganizationBuilder organizationBuilder) {
-		super(organizationBuilder.name);
-		this.relationship = organizationBuilder.relationship;
+	protected Person(PersonBuilder builder) {
+		super(builder.name);
+		this.relationship = builder.relationship;
 		
-		for(PhoneNumber phoneNumber : organizationBuilder.phones) {
+		for(PhoneNumber phoneNumber : builder.phones) {
 			this.addPhoneNumber(phoneNumber);
 		}
 		
-		for(EmailAddress emailAddress : organizationBuilder.emails) {
+		for(EmailAddress emailAddress : builder.emails) {
 			this.addEmailAddress(emailAddress);
 		}
+	}
+	
+	/**
+	 * Copy constructor
+	 * 
+	 * @param source	The source contact
+	 */
+	public Person(Person source) {
+		super(source);
+		this.relationship = source.relationship;
 	}
 	
 	/**
@@ -37,6 +44,14 @@ public class Person extends Contact {
 	 * @return	The relationship of the contact (String)
 	 */
 	public String getRelationship() { return relationship; }
+	
+	/**
+	 * Method to set the relationship
+	 * @param relationship	The relationship to set
+	 */
+	public void setRelationship(String relationship) {
+		this.relationship = relationship;
+	}
 	
 	/**
 	 * Method to display a summary of all contact details
@@ -49,10 +64,20 @@ public class Person extends Contact {
 	/**
 	 * Method to get the type of contact
 	 * 
-	 * @return	The Summary of the contact (String)
+	 * @return	The type of contact (String)
 	 */
 	@Override
 	public String getContactType() { return "PERSON"; }
+	
+	/**
+	 * method to copy the contact
+	 * 
+	 * @return Contact	the copied contact
+	 */
+	@Override
+	public Contact copy() {
+		return new Person(this);
+	}
 	
 	/**
 	 * Inner builder class to build a person object

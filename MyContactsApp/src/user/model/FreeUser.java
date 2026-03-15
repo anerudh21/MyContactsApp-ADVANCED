@@ -1,5 +1,4 @@
-package user.model;
-
+package com.seveneleven.mycontactapp.user.model;
 
 /**
  * A class that represents a free user account.
@@ -25,12 +24,5 @@ public class FreeUser extends User {
 	@Override
 	public String getAccountTier() {
 		return "FREE";
-	}
-
-
-	@Override
-	public void setPasswordHash(String newHash) {
-		// TODO Auto-generated method stub
-		
 	}
 }

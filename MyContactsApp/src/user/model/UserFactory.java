@@ -1,5 +1,4 @@
-package user.model;
-
+package com.seveneleven.mycontactapp.user.model;
 
 /**
  * A factory class responsible for instantiating the correct user subclass

@@ -1,5 +1,4 @@
-package contact.model;
-
+package com.seveneleven.mycontactapp.contact.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +31,17 @@ public class Organization extends Contact {
 	}
 	
 	/**
+	 * Copy constructor
+	 * 
+	 * @param source	The source contact
+	 */
+	public Organization(Organization source) {
+		super(source);
+		this.website = source.website;
+		this.industry = source.industry;
+	}
+	
+	/**
 	 * Method to get the website of the contact
 	 * 
 	 * @return	The website of the contact (String)
@@ -50,6 +60,22 @@ public class Organization extends Contact {
 	 * 
 	 * @return	The Summary of the contact (String)
 	 */
+	
+	/**
+	 * Method to set the website
+	 * 
+	 * @param website	The website to be set
+	 */
+	public void setWebsite(String website) {this.website = website;}
+	
+	/**
+	 * Method to set the industry
+	 * @param industry 
+	 * 
+	 * @param industry	The industry to be set
+	 */
+	public void setIndustry(String industry) {this.industry = industry;}
+	
 	@Override
 	public String getContactSummary() { return getName() + "[" + industry + "|" + website + "]"; }
 	
@@ -60,6 +86,16 @@ public class Organization extends Contact {
 	 */
 	@Override
 	public String getContactType() { return "ORGANIZATION"; }
+	
+	/**
+	 * method to copy the contact
+	 * 
+	 * @return Contact	the copied contact
+	 */
+	@Override
+	public Contact copy() {
+		return new Organization(this);
+	}
 	
 	/**
 	 * Inner builder class to build a organization object
@@ -138,7 +174,7 @@ public class Organization extends Contact {
 		 * @return the organization object
 		 */
 		public Organization build() {
-			return ContactFactory.createPersonContact(this);
+			return ContactFactory.createOrganizationContact(this);
 		}
 	}
 

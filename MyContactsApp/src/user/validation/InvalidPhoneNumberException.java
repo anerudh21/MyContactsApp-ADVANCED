@@ -1,5 +1,4 @@
-package user.validation;
-
+package com.seveneleven.mycontactapp.user.validation;
 
 @SuppressWarnings("serial")
 public class InvalidPhoneNumberException extends Exception{

@@ -1,9 +1,9 @@
-package com.seveneleven.mycontactapp.user.command;
+package com.seveneleven.mycontactapp.contact.command;
 
 /**
  * Interface to represent abstarct commands
  */
-public interface ProfileCommand {
+public interface ContactCommand {
 	
 	/**
 	 * An abstract method to facilitate command execution

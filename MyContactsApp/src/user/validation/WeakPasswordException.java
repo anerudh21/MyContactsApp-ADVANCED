@@ -1,5 +1,4 @@
-package user.validation;
-
+package com.seveneleven.mycontactapp.user.validation;
 /**
  * Custom exception that gets thrown when a user enters a weak password
  */

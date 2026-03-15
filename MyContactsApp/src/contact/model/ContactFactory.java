@@ -1,17 +1,15 @@
-package contact.model;
+package com.seveneleven.mycontactapp.contact.model;
 
-
-
-import contact.model.Organization.OrganizationBuilder;
-import contact.model.Person.PersonBuilder;
+import com.seveneleven.mycontactapp.contact.model.Organization.OrganizationBuilder;
+import com.seveneleven.mycontactapp.contact.model.Person.PersonBuilder;
 
 /**
  * Factory class to create users based on their type
  */
 public class ContactFactory {
 	
-	public static Person createPersonContact(OrganizationBuilder organizationBuilder) {
-		return new Person(organizationBuilder);
+	public static Person createPersonContact(PersonBuilder builder) {
+		return new Person(builder);
 	}
 	
 	public static Organization createOrganizationContact(OrganizationBuilder builder) {

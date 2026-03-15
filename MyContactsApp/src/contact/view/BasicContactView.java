@@ -1,4 +1,3 @@
-
 package com.seveneleven.mycontactapp.contact.view;
 
 import com.seveneleven.mycontactapp.contact.model.Contact;

@@ -1,5 +1,4 @@
-package user.utilities;
-
+package com.seveneleven.mycontactapp.user.utilities;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 

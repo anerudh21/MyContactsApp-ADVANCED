@@ -1,5 +1,4 @@
-package user.model;
-
+package com.seveneleven.mycontactapp.user.model;
 
 /**
  * Represents and displays the personal information of the user

@@ -1,4 +1,4 @@
-package user.storage;
+package com.seveneleven.mycontactapp.user.storage;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -9,8 +9,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-import user.model.*;
-
+import com.seveneleven.mycontactapp.user.model.User;
+import com.seveneleven.mycontactapp.user.model.UserBuilder;
+import com.seveneleven.mycontactapp.user.model.UserProfile;
+import com.seveneleven.mycontactapp.user.model.UserProfileBuilder;
 
 /**
  * This class is responsible for the utility functions to save

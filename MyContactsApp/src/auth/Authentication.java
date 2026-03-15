@@ -1,9 +1,8 @@
-package auth;
-
+package com.seveneleven.mycontactapp.auth;
 
 import java.util.Optional;
 
-import user.model.User;
+import com.seveneleven.mycontactapp.user.model.User;
 
 /**
  * Strategy interface containing the abstract method 

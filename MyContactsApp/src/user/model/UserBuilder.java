@@ -1,5 +1,4 @@
-package user.model;
-
+package com.seveneleven.mycontactapp.user.model;
 
 /**
  * Builder class used to construct User objects 

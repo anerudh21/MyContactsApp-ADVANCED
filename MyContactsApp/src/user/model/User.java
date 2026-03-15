@@ -1,5 +1,9 @@
-package user.model;
+package com.seveneleven.mycontactapp.user.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.seveneleven.mycontactapp.contact.model.Contact;
 
 /**
  * An abstract class that represents a user in the contacts.
@@ -14,6 +18,7 @@ public abstract class User {
 	private String email;
 	private String passwordHash;
 	private UserProfile profileInfo;
+	private List<Contact> contacts;
 	
 	/**
 	 * Protected constructor to enforce object creation only via the UserBuilder.
@@ -24,6 +29,7 @@ public abstract class User {
 		this.email = builder.getEmail();
 		this.passwordHash = builder.getPasswordHash();
 		this.profileInfo = builder.getProfileInfo();
+		this.contacts = new ArrayList<>();
 	}
 	
 	/**
@@ -48,11 +54,29 @@ public abstract class User {
 	public UserProfile getProfileInfo() { return profileInfo; }
 	
 	/**
+	 * Get the contact list of the user.
+	 * 
+	 * @return The contact about the user profile (List\<Contact\>)
+	 */
+	public List<Contact> getContacts() { return contacts; }
+	
+	/**
+	 * Method to update/reset the password of the user
+	 * 
+	 * @param newPasswordHash	Hash of the new password
+	 */
+	public void setPasswordHash(String newPasswordHash) {
+		if(newPasswordHash == null || newPasswordHash.trim().isEmpty()) {
+			throw new IllegalArgumentException("Invalid password hash.");
+		}
+		
+		this.passwordHash = newPasswordHash;
+	}
+	
+	/**
 	 * Abstract method to get the tier/type of user
 	 * 
 	 * @return The type of account the user has which can be free or premium (String)
 	 */
 	public abstract String getAccountTier();
-
-	public abstract void setPasswordHash(String newHash);
 }
