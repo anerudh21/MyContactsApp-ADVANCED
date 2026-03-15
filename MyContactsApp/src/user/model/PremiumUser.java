@@ -26,5 +26,12 @@ public class PremiumUser extends User {
 	public String getAccountTier() {
 		return "PREMIUM";
 	}
+
+
+	@Override
+	public void setPasswordHash(String newHash) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 

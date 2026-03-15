@@ -53,4 +53,6 @@ public abstract class User {
 	 * @return The type of account the user has which can be free or premium (String)
 	 */
 	public abstract String getAccountTier();
+
+	public abstract void setPasswordHash(String newHash);
 }

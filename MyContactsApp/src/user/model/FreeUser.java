@@ -26,4 +26,11 @@ public class FreeUser extends User {
 	public String getAccountTier() {
 		return "FREE";
 	}
+
+
+	@Override
+	public void setPasswordHash(String newHash) {
+		// TODO Auto-generated method stub
+		
+	}
 }
