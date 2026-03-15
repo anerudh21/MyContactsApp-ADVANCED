@@ -1,24 +1,29 @@
 package main;
 
+import java.util.Map;
+import java.util.Optional;
 import java.util.Scanner;
 
+import auth.*;
 import user.model.*;
+import user.storage.*;
 import user.utilities.*;
 import user.validation.*;
-
 /**
  * Main class that serves as the entry point to the my contacts application.
  * 
  * @author Developer
- * @version 1.0
+ * @version 2.0
  */
 public class MyContactsApp {
 	
 	private static final Scanner scanner = new Scanner(System.in);
 	private static final PasswordHasher hasher = new PasswordHasher();
+	private static final Map<String, User> userDatabase = UserFileManager.loadData();
 	
-	private static User loggedInUser = null;
-	
+	/**
+	 * Register the user to the application
+	 */
 	public static void performRegistration() {
 		scanner.nextLine();
 		System.out.print("Enter Email: ");
@@ -56,6 +61,9 @@ public class MyContactsApp {
 											.setUserType(type.toUpperCase())
 											.build();
 			
+			userDatabase.put(newUser.getEmail(), newUser);
+			UserFileManager.saveData(userDatabase);
+			
 			System.out.println("------User Registered-------");
 			System.out.println("Email: " + newUser.getEmail());
 			System.out.println("Password Hash: " + newUser.getPasswordHash());
@@ -67,9 +75,74 @@ public class MyContactsApp {
 		}catch(Exception e) {
 			System.out.println("Unexpected error occured: " + e.getMessage());
 		}
+	}
+	
+	/**
+	 * Log in the user to the application
+	 */
+	public static void performLogin() {
+		System.out.println("\n---Login---");
+		
+		scanner.nextLine();
+		
+		System.out.print("Enter Email: ");
+		String email = scanner.nextLine();
+		
+		User userLoginAttempt = userDatabase.get(email);
+		
+		if(userLoginAttempt == null) {
+			System.out.println("User not found. Please register first!!");
+			return;
+		}
+		
+		boolean isPremium = "PREMIUM".equalsIgnoreCase(userLoginAttempt.getAccountTier());
+		
+		System.out.println("Select Auth method: ");
+		System.out.println("1. Password");
+		
+		if(isPremium) {
+			System.out.println("2. OAuth Token (AuthProvider) [Unlocked]");
+		}else {
+			System.out.println("2. OAuth Token (AuthProvider) [Locked - Premium only]");
+		}
 		
 		
+		System.out.print("Choice: ");
+		String method = scanner.nextLine();
 		
+		Authentication authStrategy;
+		String secret;
+		
+		if("2".equals(method)) {
+			if(!isPremium) {
+				System.out.println("You must be a premium user to access OAuth services. Please use password instead.");
+				return;
+			}
+			
+			System.out.println("\n[Redirecting to AuthProvider...]");
+			String generatedToken = AuthProvider.generateToken(email);
+			System.out.println("[AuthProvider] Authentication Successful. Your token is " + generatedToken);
+			System.out.println("[Redirecting back to MyContactsApp.....]");
+			
+			authStrategy = new OAuthStrategy(userDatabase);
+			
+			System.out.print("Please paste your OAuth Token to finalize login: ");
+			secret = scanner.nextLine();
+		}else {
+			authStrategy = new BasicAuthStrategy(userDatabase, hasher);
+			
+			System.out.print("Enter password: ");
+			secret = scanner.nextLine();
+		}
+		
+		Optional<User> loginResult = authStrategy.authenticate(email, secret);
+		
+		if(loginResult.isPresent()) {
+			SessionManager.getInstance().loginUser(loginResult.get());
+			System.out.println("Login Successful");
+		}else {
+			System.out.println("Login Failed: Please enter valid credentials");
+		}
 		
 	}
 	
@@ -79,7 +152,7 @@ public class MyContactsApp {
 	 * @return user intent as a boolean
 	 */
 	public static boolean handleGuestMenu() {
-		System.out.println("---Guest Menu---");
+		System.out.println("\n---Guest Menu---");
 		System.out.println("1. Register");
 		System.out.println("2. Login");
 		System.out.println("0. Exit");
@@ -95,8 +168,7 @@ public class MyContactsApp {
 				yield true;
 			}
 			case 2 -> {
-				// TODO: Implement Authentication and login
-				System.out.println("Login will be implemented soon");
+				performLogin();
 				yield true;
 			}
 			
@@ -113,6 +185,47 @@ public class MyContactsApp {
 	}
 	
 	/**
+	 * Handles the menu after the user is logged in
+	 * 
+	 * @return user intent as a boolean
+	 */
+	public static boolean handleUserMenu() {
+		User activeUser = SessionManager.getInstance().getCurrentUser().get();
+		UserProfile profile = activeUser.getProfileInfo();
+		
+		System.out.println("\n---Main Menu (Logged in as " + activeUser.getEmail() +")---");
+		System.out.println("1. Profile Management");
+		System.out.println("0. logout");
+
+		System.out.print("Enter Choice: ");
+		int input = scanner.nextInt();
+		
+		return switch(input) {
+			case 1 -> {
+				System.out.println("Profile Info:-\n" + activeUser.getProfileInfo().toString());
+				
+				if(profile.getAadharNumber() != null && profile.getBankDetails() != null) {
+					System.out.println("Linked Aadhar: " + profile.getAadharNumber());
+					System.out.println("Linked Bank: " + profile.getBankDetails());
+				} else {
+					System.out.println("[Message] Login using AuthProvider to link bank and aadhar detials");
+				}
+				yield true;
+			}
+			case 0 -> {
+				System.out.println("Logging out...");
+				SessionManager.getInstance().logoutUser();
+				yield true;
+			}
+			default -> {
+				System.out.println("Invalid Choice!!");
+				yield true;
+			}
+		};
+		
+	}
+	
+	/**
 	 * Main method that starts the main application loop
 	 * @param args
 	 */
@@ -122,8 +235,10 @@ public class MyContactsApp {
 		boolean isRunning = true;
 		
 		while(isRunning) {
-			if(loggedInUser == null) {
+			if(!SessionManager.getInstance().isLoggedIn()) {
 				isRunning = handleGuestMenu();
+			}else {
+				isRunning = handleUserMenu();
 			}
 		}
 		
